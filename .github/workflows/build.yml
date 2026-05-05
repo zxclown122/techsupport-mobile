@@ -59,6 +59,11 @@ jobs:
         warnings_filter = ignore
         EOF
     
+    - name: Apply patch to skip libffi
+      run: |
+        mkdir -p .buildozer/android/platform/python-for-android/pythonforandroid/recipes/libffi
+        echo "# libffi disabled" > .buildozer/android/platform/python-for-android/pythonforandroid/recipes/libffi/__init__.py
+    
     - name: Build APK
       run: |
         export ANDROID_SDK_ROOT=$ANDROID_HOME
