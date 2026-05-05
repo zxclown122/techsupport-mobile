@@ -17,18 +17,23 @@ jobs:
       with:
         python-version: '3.9'
     
-    - name: Install buildozer and cython
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+    
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+      with:
+        packages: 'platforms;android-30 build-tools;30.0.3'
+    
+    - name: Install buildozer
       run: |
         pip install --upgrade pip
         pip install cython buildozer
     
-    - name: Remove old files
-      run: |
-        rm -f buildozer.spec
-        rm -rf .buildozer
-        rm -rf ~/.buildozer
-    
-    - name: Create buildozer.spec
+    - name: Configure buildozer
       run: |
         cat > buildozer.spec << 'EOF'
         [app]
@@ -51,11 +56,13 @@ jobs:
         
         [buildozer]
         log_level = 2
-        warn_on_root = 1
+        warnings_filter = ignore
         EOF
     
     - name: Build APK
       run: |
+        export ANDROID_SDK_ROOT=$ANDROID_HOME
+        export ANDROID_NDK_HOME=/usr/local/lib/android/sdk/ndk/25.2.9519653
         buildozer -v android debug
         ls -la bin/
     
