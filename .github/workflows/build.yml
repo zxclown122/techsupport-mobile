@@ -37,9 +37,9 @@ jobs:
         warnings_filter = ignore
         EOF
     
-    - name: Build APK with Docker (non-root user)
+    - name: Build APK with Docker (yes pipe)
       run: |
-        docker run --rm -v ${PWD}:/app -w /app kivy/buildozer:latest /bin/bash -c "useradd -m -u 1000 runner && chown -R runner:runner /app && su runner -c 'buildozer android debug'"
+        echo "y" | docker run --rm -i -v ${PWD}:/app -w /app kivy/buildozer:latest buildozer android debug
       
     - name: Upload APK
       uses: actions/upload-artifact@v4
