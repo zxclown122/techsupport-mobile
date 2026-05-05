@@ -1,0 +1,38 @@
+<LoginScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(40)
+        spacing: dp(20)
+        Label:
+            text: 'Вход'
+            font_size: '24sp'
+            color: 0,0,0,1
+            size_hint_y: None
+            height: dp(50)
+        TextInput:
+            id: login_input
+            hint_text: 'Введите логин'
+            background_color: 0.9,0.9,0.9,1
+            foreground_color: 0,0,0,1
+            hint_text_color: 0.6,0.6,0.6,1
+            size_hint_x: 0.85
+            pos_hint: {'center_x': 0.5}
+            height: dp(45)
+        TextInput:
+            id: password_input
+            hint_text: 'Введите пароль'
+            password: True
+            background_color: 0.9,0.9,0.9,1
+            foreground_color: 0,0,0,1
+            hint_text_color: 0.6,0.6,0.6,1
+            size_hint_x: 0.85
+            pos_hint: {'center_x': 0.5}
+            height: dp(45)
+        Button:
+            text: 'Открыть'
+            background_color: 0.8,0.8,0.8,1
+            color: 0,0,0,1
+            size_hint_x: 0.85
+            pos_hint: {'center_x': 0.5}
+            height: dp(45)
+            on_release: root.do_login()

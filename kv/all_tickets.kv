@@ -1,0 +1,51 @@
+<AllTicketsScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(15)
+        spacing: dp(10)
+        BoxLayout:
+            size_hint_y: None
+            height: dp(50)
+            Button:
+                text: 'Назад'
+                size_hint_x: None
+                width: dp(60)
+                background_color: 0.8,0.8,0.8,1
+                color: 0,0,0,1
+                on_release: app.root.current = 'main'
+            Label:
+                text: 'Все заявки'
+                color: 0,0,0,1
+            Button:
+                text: 'Фильтр'
+                size_hint_x: None
+                width: dp(60)
+                background_color: 0.8,0.8,0.8,1
+                color: 0,0,0,1
+                on_release: root.show_filter()
+        GridLayout:
+            cols: 4
+            size_hint_y: None
+            height: dp(40)
+            Label:
+                text: 'ID'
+                color: 0,0,0,1
+                bold: True
+            Label:
+                text: 'Заголовок'
+                color: 0,0,0,1
+                bold: True
+            Label:
+                text: 'Статус'
+                color: 0,0,0,1
+                bold: True
+            Label:
+                text: 'Автор'
+                color: 0,0,0,1
+                bold: True
+        ScrollView:
+            BoxLayout:
+                id: tickets_container
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height

@@ -1,0 +1,58 @@
+<DiagnosticsScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(15)
+        BoxLayout:
+            size_hint_y: None
+            height: dp(50)
+            Button:
+                text: 'Назад'
+                size_hint_x: None
+                width: dp(60)
+                background_color: 0.8,0.8,0.8,1
+                color: 0,0,0,1
+                on_release: app.root.current = 'main'
+            Label:
+                text: 'Диагностика заявок'
+                color: 0,0,0,1
+        Spinner:
+            id: ticket_spinner
+            text: 'Выберите заявку'
+            values: []
+            background_color: 0.9,0.9,0.9,1
+            color: 0,0,0,1
+            size_hint_y: None
+            height: dp(45)
+        TextInput:
+            id: diagnosis_input
+            hint_text: 'Описание проблемы'
+            background_color: 0.9,0.9,0.9,1
+            foreground_color: 0,0,0,1
+            hint_text_color: 0.6,0.6,0.6,1
+            multiline: True
+            size_hint_y: 0.3
+        TextInput:
+            id: recommendation_input
+            hint_text: 'Рекомендации по решению'
+            background_color: 0.9,0.9,0.9,1
+            foreground_color: 0,0,0,1
+            hint_text_color: 0.6,0.6,0.6,1
+            multiline: True
+            size_hint_y: 0.2
+        TextInput:
+            id: time_input
+            hint_text: 'Примерное время решения (минуты)'
+            background_color: 0.9,0.9,0.9,1
+            foreground_color: 0,0,0,1
+            hint_text_color: 0.6,0.6,0.6,1
+            input_filter: 'int'
+            size_hint_y: None
+            height: dp(45)
+        Button:
+            text: 'Сохранить диагностику'
+            background_color: 0.8,0.8,0.8,1
+            color: 0,0,0,1
+            size_hint_y: None
+            height: dp(50)
+            on_release: root.save_diagnostics()

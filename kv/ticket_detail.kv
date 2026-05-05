@@ -1,0 +1,47 @@
+<TicketDetailScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(15)
+        spacing: dp(10)
+        BoxLayout:
+            size_hint_y: None
+            height: dp(50)
+            Button:
+                text: 'Назад'
+                size_hint_x: None
+                width: dp(60)
+                background_color: 0.8,0.8,0.8,1
+                color: 0,0,0,1
+                on_release: app.root.current = 'my_tickets'
+            Label:
+                id: title_label
+                text: 'Загрузка...'
+                color: 0,0,0,1
+        Label:
+            id: status_label
+            text: ''
+            color: 0,0,0,1
+            size_hint_y: None
+            height: dp(30)
+        ScrollView:
+            BoxLayout:
+                id: messages_container
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+        BoxLayout:
+            size_hint_y: None
+            height: dp(50)
+            TextInput:
+                id: message_input
+                hint_text: 'Введите сообщение...'
+                background_color: 0.9,0.9,0.9,1
+                foreground_color: 0,0,0,1
+                hint_text_color: 0.6,0.6,0.6,1
+            Button:
+                text: 'Отправить'
+                size_hint_x: None
+                width: dp(80)
+                background_color: 0.8,0.8,0.8,1
+                color: 0,0,0,1
+                on_release: root.send_message()

@@ -1,0 +1,32 @@
+<MainScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: [dp(15), dp(10), dp(15), dp(20)]
+        spacing: dp(15)
+        BoxLayout:
+            size_hint_y: None
+            height: dp(50)
+            Button:
+                text: 'Меню'
+                size_hint_x: None
+                width: dp(60)
+                background_color: 0.8,0.8,0.8,1
+                color: 0,0,0,1
+                on_release: root.show_menu()
+            Label:
+                id: user_label
+                text: 'Загрузка...'
+                color: 0,0,0,1
+                halign: 'center'
+            Button:
+                text: 'Уведомления'
+                size_hint_x: None
+                width: dp(90)
+                background_color: 0.8,0.8,0.8,1
+                color: 0,0,0,1
+        BoxLayout:
+            id: buttons_container
+            orientation: 'vertical'
+            spacing: dp(15)
+            size_hint_y: None
+            height: self.minimum_height

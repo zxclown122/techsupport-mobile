@@ -1,0 +1,40 @@
+<MyTicketsScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(15)
+        spacing: dp(10)
+        BoxLayout:
+            size_hint_y: None
+            height: dp(50)
+            Button:
+                text: 'Назад'
+                size_hint_x: None
+                width: dp(60)
+                background_color: 0.8,0.8,0.8,1
+                color: 0,0,0,1
+                on_release: app.root.current = 'main'
+            Label:
+                text: 'Мои заявки'
+                color: 0,0,0,1
+        GridLayout:
+            cols: 3
+            size_hint_y: None
+            height: dp(40)
+            Label:
+                text: 'Ваши заявки'
+                color: 0,0,0,1
+                bold: True
+            Label:
+                text: 'Статус'
+                color: 0,0,0,1
+                bold: True
+            Label:
+                text: 'Дата'
+                color: 0,0,0,1
+                bold: True
+        ScrollView:
+            BoxLayout:
+                id: tickets_container
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
