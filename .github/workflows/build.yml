@@ -12,65 +12,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Setup Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.9'
-    
-    - name: Setup Java
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: '17'
-    
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
-      with:
-        packages: 'platforms;android-30 build-tools;30.0.3'
-    
-    - name: Install buildozer
+    - name: Build APK with Docker
       run: |
-        pip install --upgrade pip
-        pip install cython buildozer
-    
-    - name: Configure buildozer
-      run: |
-        cat > buildozer.spec << 'EOF'
-        [app]
-        title = TechSupport
-        package.name = techsupport
-        package.domain = org.example
-        source.dir = .
-        source.include_exts = py,png,jpg,kv,atlas,ttf,txt,json
-        version = 1.0
-        requirements = python3,kivy
-        orientation = portrait
-        fullscreen = 1
-        android.permissions = INTERNET
-        android.api = 30
-        android.minapi = 21
-        android.ndk = 25b
-        android.sdk = 30
-        android.archs = armeabi-v7a
-        android.accept_sdk_license = True
-        
-        [buildozer]
-        log_level = 2
-        warnings_filter = ignore
-        EOF
-    
-    - name: Apply patch to skip libffi
-      run: |
-        mkdir -p .buildozer/android/platform/python-for-android/pythonforandroid/recipes/libffi
-        echo "# libffi disabled" > .buildozer/android/platform/python-for-android/pythonforandroid/recipes/libffi/__init__.py
-    
-    - name: Build APK
-      run: |
-        export ANDROID_SDK_ROOT=$ANDROID_HOME
-        export ANDROID_NDK_HOME=/usr/local/lib/android/sdk/ndk/25.2.9519653
-        buildozer -v android debug
-        ls -la bin/
-    
+        docker run --rm -v ${PWD}:/app -w /app kivy/buildozer:latest buildozer android debug
+      
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
