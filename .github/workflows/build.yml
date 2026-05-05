@@ -22,6 +22,10 @@ jobs:
         pip install --upgrade pip
         pip install buildozer
     
+    - name: Remove old spec file
+      run: |
+        rm -f buildozer.spec
+    
     - name: Build APK
       run: |
         buildozer init
@@ -30,6 +34,9 @@ jobs:
         sed -i 's/^android.api = .*/android.api = 30/' buildozer.spec
         sed -i 's/^android.minapi = .*/android.minapi = 21/' buildozer.spec
         sed -i 's/^android.ndk = .*/android.ndk = 23b/' buildozer.spec
+        echo "" >> buildozer.spec
+        echo "[buildozer]" >> buildozer.spec
+        echo "log_level = 2" >> buildozer.spec
         buildozer -v android debug
         ls -la bin/
     
