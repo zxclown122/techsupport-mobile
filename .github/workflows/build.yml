@@ -37,9 +37,9 @@ jobs:
         warnings_filter = ignore
         EOF
     
-    - name: Install buildozer and build APK
+    - name: Build APK
       run: |
-        echo "y" | docker run --rm -i -v ${PWD}:/app -w /app kivy/buildozer:latest /bin/bash -c "pip install buildozer && buildozer android debug"
+        docker run --rm -v ${PWD}:/app -w /app kivy/buildozer:latest sh -c "yes y | buildozer android debug"
       
     - name: Upload APK
       uses: actions/upload-artifact@v4
