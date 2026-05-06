@@ -28,7 +28,15 @@ jobs:
       - name: Install system deps
         run: |
           sudo apt-get update
-          sudo apt-get install -y zip unzip autoconf automake libtool pkg-config cmake libffi-dev libssl-dev git
+          sudo apt-get install -y zip
+          sudo apt-get install -y unzip
+          sudo apt-get install -y autoconf
+          sudo apt-get install -y automake
+          sudo apt-get install -y libtool
+          sudo apt-get install -y pkg-config
+          sudo apt-get install -y cmake
+          sudo apt-get install -y libffi-dev
+          sudo apt-get install -y libssl-dev git
 
       - name: Install Python deps
         run: |
@@ -45,16 +53,16 @@ jobs:
           package.name = techsupport
           package.domain = org.example
           source.dir = .
-          source.include_exts = py,png,jpg,jpeg,kv,atlas,ttf,txt,json
+          source.include_exts = py,png,jpg,jpeg,kv,atlas,ttf,txt,json,db,sqlite
           version = 1.0
-          requirements = python3==3.10.11,kivy==2.3.0,openssl
+          requirements = python3,kivy==2.3.0,openssl,pyjnius
           orientation = portrait
           fullscreen = 1
           android.permissions = android.permission.INTERNET,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE
           android.api = 31
           android.minapi = 21
           android.ndk = 25b
-          android.archs = arm64-v8a
+          android.archs = arm64-v8a,armeabi-v7a
           android.accept_sdk_license = True
 
           [buildozer]
