@@ -9,7 +9,7 @@ def login(login, password):
         r = requests.post(f"{API_BASE}/auth/login", json={"login": login, "password": password}, timeout=10)
         if r.status_code == 200:
             data = r.json()
-            store.put('auth', token=data['token'], user=data['user'])
+            store.put('auth', token=data['access_token'], user=data['user'])
             return True, data
         else:
             return False, r.json().get('detail', 'Ошибка входа')
