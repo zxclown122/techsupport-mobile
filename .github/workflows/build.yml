@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout
@@ -17,7 +17,7 @@ jobs:
       - name: Set Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.10"
 
       - name: Install system deps
         run: |
@@ -27,28 +27,23 @@ jobs:
       - name: Install Python deps
         run: |
           python -m pip install --upgrade pip
-          pip install Cython==0.29.36
-          pip install buildozer
-          pip install git+https://github.com/kivy/python-for-android.git
+          pip install Cython==0.29.33
+          pip install buildozer==1.5.0
+          pip install python-for-android==2024.1.21
 
       - name: Create buildozer.spec
         run: |
-          cat > buildozer.spec << 'EOF'
+          cat > buildozer.spec << EOF
           [app]
           title = TechSupport
           package.name = techsupport
           package.domain = org.example
-
           source.dir = .
           source.include_exts = py,png,jpg,jpeg,kv,atlas,ttf,txt,json
-
           version = 1.0
-
-          requirements = python3,kivy
-
+          requirements = python3==3.10.11,kivy==2.3.0
           orientation = portrait
           fullscreen = 1
-
           android.permissions = INTERNET
           android.api = 31
           android.minapi = 21
@@ -58,11 +53,12 @@ jobs:
 
           [buildozer]
           log_level = 2
-          warnings_filter = ignore
           EOF
 
-      - name: Clean old build cache
-        run: rm -rf .buildozer bin
+      - name: Clean
+        run: |
+          rm -rf .buildozer
+          rm -rf bin
 
       - name: Build APK
         run: |
