@@ -2,7 +2,8 @@ name: Build APK
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
   workflow_dispatch:
 
 jobs:
@@ -10,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Set Python
         uses: actions/setup-python@v5
@@ -19,20 +21,10 @@ jobs:
 
       - name: Install system deps
         run: |
-          sudo apt update
-          sudo apt install -y 
-            zip 
-            unzip 
-            openjdk-17-jdk 
-            autoconf 
-            automake 
-            libtool 
-            pkg-config 
-            cmake 
-            libffi-dev 
-            libssl-dev
+          sudo apt-get update
+          sudo apt-get install -y zip unzip openjdk-17-jdk autoconf automake libtool pkg-config cmake libffi-dev libssl-dev git
 
-      - name: Install python deps
+      - name: Install Python deps
         run: |
           python -m pip install --upgrade pip
           pip install Cython==0.29.36
@@ -46,32 +38,35 @@ jobs:
           title = TechSupport
           package.name = techsupport
           package.domain = org.example
+
           source.dir = .
-          source.include_exts = py,png,jpg,kv,atlas,ttf,txt,json
+          source.include_exts = py,png,jpg,jpeg,kv,atlas,ttf,txt,json
+
           version = 1.0
 
           requirements = python3,kivy
 
           orientation = portrait
           fullscreen = 1
-          android.permissions = INTERNET
 
+          android.permissions = INTERNET
           android.api = 31
           android.minapi = 21
           android.ndk = 25b
           android.archs = arm64-v8a
-
           android.accept_sdk_license = True
 
           [buildozer]
           log_level = 2
+          warnings_filter = ignore
           EOF
 
-      - name: Clean
-        run: rm -rf .buildozer
+      - name: Clean old build cache
+        run: rm -rf .buildozer bin
 
       - name: Build APK
-        run: buildozer android debug
+        run: |
+          buildozer android debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
