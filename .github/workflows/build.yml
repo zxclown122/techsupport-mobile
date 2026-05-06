@@ -21,10 +21,16 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y 
-            zip unzip openjdk-17-jdk 
-            autoconf automake libtool 
-            pkg-config cmake 
-            libffi-dev libssl-dev
+            zip 
+            unzip 
+            openjdk-17-jdk 
+            autoconf 
+            automake 
+            libtool 
+            pkg-config 
+            cmake 
+            libffi-dev 
+            libssl-dev
 
       - name: Install python deps
         run: |
